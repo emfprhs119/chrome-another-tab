@@ -5,6 +5,27 @@
 An open source Chrome extension that shows your bookmarks when you open a new tab.  
 Built with Create React App and TypeScript.
 
+<p align="center" margin-bottom="0">
+  <a href="https://github.com/emfprhs119/chrome-another-tab" target="_blank">
+    <img alt="Another Tab" width="auto" height="auto" src="./.github/2022-08-11-23-45-52.png">
+  </a>
+</p>
+
+## 새 탭 확장 프로그램 (Fork 수정)
+
+### 변경점
+
+- 로켓(대형 바로가기) 추가
+- 로켓과 바로가기 리스트 간 위아래 전환 버튼 추가
+- 즐겨찾기 가로 항목 수 증가
+- 아이콘 크기 증가
+
+&nbsp;
+
+_원본 이하 참조_
+
+---
+
 &nbsp;
 
 <p align="center" margin-bottom="0">
@@ -25,7 +46,6 @@ Built with Create React App and TypeScript.
   </a>
 </p>
 
-
 ## Overview
 
 I initially built this extension just for personal use... and for trying building a Chrome extension 🤷‍♂️, so for now it has just the features that I need...  
@@ -39,7 +59,7 @@ That said, PRs are welcome!
 - Keyboard navigation support
 - Bookmark folders visibility toggle
 - Themes support
-- Drag & drop bookmark sorting 
+- Drag & drop bookmark sorting
 
 ### Stack
 
@@ -52,12 +72,12 @@ That said, PRs are welcome!
 
 ### Feature request
 
-I already created a few [issues](https://github.com/mmazzarolo/chrome-another-tab/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) with some features that I feel like would be really welcomed addition, and I'm open to any other additional suggestion... especially if you already have an idea to implement it's UI/UX.  
+I already created a few [issues](https://github.com/mmazzarolo/chrome-another-tab/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) with some features that I feel like would be really welcomed addition, and I'm open to any other additional suggestion... especially if you already have an idea to implement it's UI/UX.
 
 ### Developing locally
 
-This is a standard Create React App, so you can easily start working on it by simply cloning the project and running `yarn` to install all its dependencies.   
-To develop the app locally you can run `yarn start`, I already included some fake bookmarks to simulate the production behaviour of the extension.  
+This is a standard Create React App, so you can easily start working on it by simply cloning the project and running `yarn` to install all its dependencies.  
+To develop the app locally you can run `yarn start`, I already included some fake bookmarks to simulate the production behaviour of the extension.
 
 ### Development tips
 
@@ -68,16 +88,15 @@ Also, if you're not confortable with hooks feel free to use class components.
 
 ### Chrome Web Store deployment
 
-I setup a [semi-automated Chrome Web Store deployment using CircleCI](./.circleci/config.yml).     
+I setup a [semi-automated Chrome Web Store deployment using CircleCI](./.circleci/config.yml).  
 It currently runs only when the `master` branch receives a new push, but I still haven't automated the version number bumping (so I still have to do it manually).  
-It would be great making the publishing step manipulate the `manifest.json` so that it reflects the `package.json` version and/or a git tag.  
+It would be great making the publishing step manipulate the `manifest.json` so that it reflects the `package.json` version and/or a git tag.
 
 ### Live example deployment
 
-The "live example" is just a customized version of the production build of the app deployed on GitHub Pages. 
-If you check the `gh-pages` script in the `package.json` you'll see that I'm setting a `REACT_APP_IS_LIVE_EXAMPLE` environment variable before running the GitHub Pages deployment: this will allow the build to use the fake bookmarks instead of trying to get them from the Chrome API (like if it was an extension running in the browser).   
+The "live example" is just a customized version of the production build of the app deployed on GitHub Pages.
+If you check the `gh-pages` script in the `package.json` you'll see that I'm setting a `REACT_APP_IS_LIVE_EXAMPLE` environment variable before running the GitHub Pages deployment: this will allow the build to use the fake bookmarks instead of trying to get them from the Chrome API (like if it was an extension running in the browser).
 
 ### GitHub organization?
 
-If the app starts getting contributions I'll gladly create a new ad-hoc organization for it, instead of keeping it in my personal profile.  
-
+If the app starts getting contributions I'll gladly create a new ad-hoc organization for it, instead of keeping it in my personal profile.

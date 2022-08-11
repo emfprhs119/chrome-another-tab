@@ -10,6 +10,7 @@ import { useMappedState } from 'redux-react-hook';
 import { SearchBar } from './SearchBar';
 import { LogoImage } from './LogoImage';
 import { MarkGithub as GithubIcon } from 'styled-icons/octicons';
+import { FoldDown, FoldUp } from 'styled-icons/octicons';
 import { Hide as HideIcon, Show as ShowIcon } from 'styled-icons/boxicons-regular';
 import { ColorLens as ColorLensIcon } from 'styled-icons/material';
 import { useKeyboardPress } from '../hooks/useKeyboardPress';
@@ -54,7 +55,7 @@ export const Header: FC = memo((props) => {
     <Root>
       <Logo>
         <StyledLogoImage />
-        <LogoText>Another Tab</LogoText>
+        <LogoText>Another Tab (min)</LogoText>
       </Logo>
       <SearchBar ref={searchBarRef} query={query} onChange={setQuery} />
       <Menu>
@@ -64,7 +65,7 @@ export const Header: FC = memo((props) => {
         </MenuItem>
         <Separator />
         <MenuItem onClick={handleSwapTopDownClick}>
-          <StyledHideIcon />
+          {isSwapTopDown ? <StyledSwapUpIcon /> : <StyledSwapDownIcon />}
           <ToolTip>{isSwapTopDown ? 'Swap Top Rocket' : 'Swap Down Rocket'}</ToolTip>
         </MenuItem>
         <Separator />
@@ -180,7 +181,14 @@ const Separator = styled.span`
   width: 1px;
 `;
 
-const StyledSwapIcon = styled(HideIcon)`
+const StyledSwapUpIcon = styled(FoldUp)`
+  color: ${(props: { theme: Theme }) => props.theme.headerColor};
+  height: 22px;
+  width: 22px;
+  margin-right: 4px;
+`;
+
+const StyledSwapDownIcon = styled(FoldDown)`
   color: ${(props: { theme: Theme }) => props.theme.headerColor};
   height: 22px;
   width: 22px;
