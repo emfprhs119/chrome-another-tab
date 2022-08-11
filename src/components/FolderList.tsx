@@ -2,14 +2,14 @@
  * The list of bookmark folders. Handle the interactions between the folder
  * show/hide option and Redux.
  */
-import React, { FC, memo, useState } from "react";
-import styled from "styled-components/macro";
-import { FolderHeader } from "./FolderHeader";
-import { BookmarkTree } from "../types/BookmarkTree";
-import { Folder } from "../types/Folder";
-import { actions } from "../actions";
-import { useMappedActions } from "../hooks/useMappedActions";
-import { BookmarkGrid } from "./BookmarkGrid";
+import React, { FC, memo, useState } from 'react';
+import styled from 'styled-components/macro';
+import { FolderHeader } from './FolderHeader';
+import { BookmarkTree } from '../types/BookmarkTree';
+import { Folder } from '../types/Folder';
+import { actions } from '../actions';
+import { useMappedActions } from '../hooks/useMappedActions';
+import { BookmarkGrid } from './BookmarkGrid';
 
 interface Props {
   bookmarkTree: BookmarkTree;
@@ -35,7 +35,7 @@ export const FolderList: FC<Props> = memo(({ bookmarkTree }) => {
   const { hideFolder, showFolder } = useMappedActions(actions);
   return (
     <Root>
-      {bookmarkTree.map(folder => {
+      {bookmarkTree.map((folder) => {
         const handleOptionClick = () => {
           if (folder.isHidden) {
             showFolder(folder.id);
@@ -45,19 +45,15 @@ export const FolderList: FC<Props> = memo(({ bookmarkTree }) => {
         };
         return (
           <FolderItem key={folder.id}>
-            <FolderHeader
-              title={folder.title}
-              isHidden={folder.isHidden}
-              onOptionClick={handleOptionClick}
-            />
+            <FolderHeader title={folder.title} isHidden={folder.isHidden} onOptionClick={handleOptionClick} />
             <BookmarkGrid
               folder={folder}
               isFolderHidden={folder.isHidden}
               isDragging={isDragging}
-              axis="xy"
+              axis='xy'
               distance={8}
               updateBeforeSortStart={handleStartDragging}
-              onSortEnd={params => handleStopDragging(folder, params)}
+              onSortEnd={(params) => handleStopDragging(folder, params)}
             />
           </FolderItem>
         );
@@ -71,12 +67,12 @@ const Root = styled.ul`
   text-align: left;
   padding-left: 0;
   width: 100%;
-  max-width: 860px;
+  height: 76vh;
+  min-width: 80vw;
+  overflow-y: scroll;
 `;
 
 const FolderItem = styled.li`
   list-style: none;
   padding-left: 0px;
-  margin-top: 30px;
-  margin-bottom: 10px;
 `;

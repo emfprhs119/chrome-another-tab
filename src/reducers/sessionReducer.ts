@@ -1,29 +1,28 @@
-import { produce } from "immer";
-import { getType } from "typesafe-actions";
-import { actions } from "../actions";
-import { ReduxAction } from "../types/ReduxAction";
+import { produce } from 'immer';
+import { getType } from 'typesafe-actions';
+import { actions } from '../actions';
+import { ReduxAction } from '../types/ReduxAction';
 
 export type State = {
   readonly query: string;
   readonly isShowingHiddenBookmarks: boolean;
+  readonly isSwapTopDown: boolean;
   readonly isRetrievingBookmarks: boolean;
   readonly areBookmarksReady: boolean;
   readonly isDragging: boolean;
 };
 
 export const initialState: State = {
-  query: "",
+  query: '',
   isShowingHiddenBookmarks: false,
+  isSwapTopDown: false,
   isRetrievingBookmarks: false,
   isDragging: false,
-  areBookmarksReady: false
+  areBookmarksReady: false,
 };
 
-export const sessionReducer = (
-  state: State = initialState,
-  action: ReduxAction
-): State => {
-  return produce(state, draft => {
+export const sessionReducer = (state: State = initialState, action: ReduxAction): State => {
+  return produce(state, (draft) => {
     switch (action.type) {
       case getType(actions.retrieveBookmarks): {
         draft.isRetrievingBookmarks = true;
@@ -42,6 +41,10 @@ export const sessionReducer = (
       }
       case getType(actions.toggleShowHiddenBookmarks): {
         draft.isShowingHiddenBookmarks = !state.isShowingHiddenBookmarks;
+        break;
+      }
+      case getType(actions.toggleSwapTopDown): {
+        draft.isSwapTopDown = !state.isSwapTopDown;
         break;
       }
       case getType(actions.setQuery): {

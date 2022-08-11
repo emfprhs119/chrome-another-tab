@@ -1,50 +1,48 @@
 /**
  * The app header (with logo, searchbar and a few links).
  */
-import React, { FC, memo, MouseEvent, useRef } from "react";
-import styled, { keyframes } from "styled-components/macro";
-import { actions } from "../actions";
-import { ReduxState } from "../types/ReduxState";
-import { useMappedActions } from "../hooks/useMappedActions";
-import { useMappedState } from "redux-react-hook";
-import { SearchBar } from "./SearchBar";
-import { LogoImage } from "./LogoImage";
-import { MarkGithub as GithubIcon } from "styled-icons/octicons";
-import {
-  Hide as HideIcon,
-  Show as ShowIcon
-} from "styled-icons/boxicons-regular";
-import { ColorLens as ColorLensIcon } from "styled-icons/material";
-import { useKeyboardPress } from "../hooks/useKeyboardPress";
-import { Theme } from "../types/Theme";
+import React, { FC, memo, MouseEvent, useRef } from 'react';
+import styled, { keyframes } from 'styled-components/macro';
+import { actions } from '../actions';
+import { ReduxState } from '../types/ReduxState';
+import { useMappedActions } from '../hooks/useMappedActions';
+import { useMappedState } from 'redux-react-hook';
+import { SearchBar } from './SearchBar';
+import { LogoImage } from './LogoImage';
+import { MarkGithub as GithubIcon } from 'styled-icons/octicons';
+import { Hide as HideIcon, Show as ShowIcon } from 'styled-icons/boxicons-regular';
+import { ColorLens as ColorLensIcon } from 'styled-icons/material';
+import { useKeyboardPress } from '../hooks/useKeyboardPress';
+import { Theme } from '../types/Theme';
 
 const mapState = (state: ReduxState) => ({
   query: state.session.query,
-  isShowingHiddenBookmarks: state.session.isShowingHiddenBookmarks
+  isShowingHiddenBookmarks: state.session.isShowingHiddenBookmarks,
+  isSwapTopDown: state.session.isSwapTopDown,
 });
 
-export const Header: FC = memo(props => {
-  const { isShowingHiddenBookmarks, query } = useMappedState(mapState);
-  const {
-    toggleShowHiddenBookmarks,
-    setQuery,
-    goToNextTheme
-  } = useMappedActions(actions);
+export const Header: FC = memo((props) => {
+  const { isShowingHiddenBookmarks, isSwapTopDown, query } = useMappedState(mapState);
+  const { toggleShowHiddenBookmarks, toggleSwapTopDown, setQuery, goToNextTheme } = useMappedActions(actions);
   const searchBarRef = useRef<HTMLInputElement>(null);
 
   // Overrides CMD+F default behaviour
   useKeyboardPress({
-    key: "f",
+    key: 'f',
     metaKey: true,
-    onKeyDown: e => {
+    onKeyDown: (e) => {
       e.preventDefault();
       searchBarRef.current && searchBarRef.current.focus();
-    }
+    },
   });
 
   const handleBookmarksVisibilityClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     toggleShowHiddenBookmarks();
+  };
+  const handleSwapTopDownClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    toggleSwapTopDown();
   };
 
   const handleThemeSwitchClick = (e: MouseEvent<HTMLAnchorElement>) => {
@@ -62,11 +60,12 @@ export const Header: FC = memo(props => {
       <Menu>
         <MenuItem onClick={handleBookmarksVisibilityClick}>
           {isShowingHiddenBookmarks ? <StyledHideIcon /> : <StyledShowIcon />}
-          <ToolTip>
-            {isShowingHiddenBookmarks
-              ? "Hide hidden bookmarks"
-              : "Show hidden bookmarks"}
-          </ToolTip>
+          <ToolTip>{isShowingHiddenBookmarks ? 'Hide hidden bookmarks' : 'Show hidden bookmarks'}</ToolTip>
+        </MenuItem>
+        <Separator />
+        <MenuItem onClick={handleSwapTopDownClick}>
+          <StyledHideIcon />
+          <ToolTip>{isSwapTopDown ? 'Swap Top Rocket' : 'Swap Down Rocket'}</ToolTip>
         </MenuItem>
         <Separator />
         <MenuItem onClick={handleThemeSwitchClick}>
@@ -74,10 +73,7 @@ export const Header: FC = memo(props => {
           <ToolTip>Change theme colors</ToolTip>
         </MenuItem>
         <Separator />
-        <MenuItem
-          href="https://github.com/mmazzarolo/chrome-another-tab"
-          tabIndex={-1}
-        >
+        <MenuItem href='https://github.com/emfprhs119/chrome-another-tab' tabIndex={-1}>
           <StyledGithubIcon />
         </MenuItem>
       </Menu>
@@ -131,6 +127,7 @@ const Menu = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin: 10px 5px;
 `;
 
 const ToolTip = styled.span`
@@ -146,7 +143,7 @@ const ToolTip = styled.span`
   background-color: black;
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -181,6 +178,13 @@ const Separator = styled.span`
   margin: 0px 16px;
   height: 18px;
   width: 1px;
+`;
+
+const StyledSwapIcon = styled(HideIcon)`
+  color: ${(props: { theme: Theme }) => props.theme.headerColor};
+  height: 22px;
+  width: 22px;
+  margin-right: 4px;
 `;
 
 const StyledHideIcon = styled(HideIcon)`

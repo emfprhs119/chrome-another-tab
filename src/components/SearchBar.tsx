@@ -1,10 +1,10 @@
 /**
  * Searchbar that resides inside the app header.
  */
-import React, { ChangeEvent, forwardRef } from "react";
-import styled from "styled-components/macro";
-import { Search as SearchIcon } from "styled-icons/material";
-import { Theme } from "../types/Theme";
+import React, { ChangeEvent, forwardRef } from 'react';
+import styled from 'styled-components/macro';
+import { Search as SearchIcon } from 'styled-icons/material';
+import { Theme } from '../types/Theme';
 
 interface Props {
   query: string;
@@ -19,13 +19,7 @@ export const SearchBar = forwardRef<HTMLInputElement, Props>((props, ref) => {
   return (
     <Form>
       <StyledSearchIcon />
-      <Input
-        ref={ref}
-        placeholder="Search bookmarks..."
-        type="text"
-        onChange={handleInputChange}
-        value={query}
-      />
+      <Input ref={ref} placeholder='Search bookmarks...' type='text' onChange={handleInputChange} value={query} />
     </Form>
   );
 });
@@ -35,13 +29,13 @@ const Form = styled.form`
   flex-direction: row;
   align-items: center;
   width: 190px;
-  height: 32px;
+  height: 48px;
 `;
 
 const StyledSearchIcon = styled(SearchIcon)`
   color: ${(props: { theme: Theme }) => props.theme.headerColor};
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   margin-right: 6px;
 `;
 
@@ -64,8 +58,7 @@ const Input = styled.input`
   &:focus {
     border: none;
     border-bottom: 1px solid white;
-    border-bottom-color: ${(props: { theme: Theme }) =>
-      props.theme.headerColor};
+    border-bottom-color: ${(props: { theme: Theme }) => props.theme.headerColor};
   }
 
   &:hover::placeholder {

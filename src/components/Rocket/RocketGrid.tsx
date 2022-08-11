@@ -6,8 +6,8 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { SortableContainer } from 'react-sortable-hoc';
-import { BookmarkGridItem } from './BookmarkGridItem';
-import { Folder } from '../types/Folder';
+import { RocketGridItem } from './RocketGridItem';
+import { Folder } from '../../types/Folder';
 
 interface Props {
   folder: Folder;
@@ -15,11 +15,11 @@ interface Props {
   isFolderHidden: boolean;
 }
 
-export const BookmarkGrid = SortableContainer<Props>(({ folder, isDragging, isFolderHidden }) => {
+export const RocketGrid = SortableContainer<Props>(({ folder, isDragging, isFolderHidden }) => {
   return (
     <Root>
       {folder.bookmarks.map((bookmark, index) => (
-        <BookmarkGridItem
+        <RocketGridItem
           key={bookmark.id}
           id={bookmark.id}
           index={index}
@@ -35,7 +35,9 @@ export const BookmarkGrid = SortableContainer<Props>(({ folder, isDragging, isFo
 });
 
 const Root = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 280px);
-  padding-left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
 `;
